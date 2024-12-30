@@ -1,0 +1,72 @@
+# Devam Punitbhai Patel
+
+version: '3.9'
+services:
+  java:
+    depends_on: # declare that this container depends on cs so it lets our sever start first
+      - cs
+    # image: amazoncorretto # pull the image directly from dockerhub
+    build: 
+      context: ./Client
+      dockerfile: Dockerfile-java
+    container_name: java-Client
+    # volumes:
+    #   - ./java:/code
+    command: "java Client"
+    working_dir: "/code"
+    stdin_open: true
+    tty: true
+  
+  java2:
+    depends_on: # declare that this container depends on cs so it lets our sever start first
+      - cs
+    # image: amazoncorretto # pull the image directly from dockerhub
+    build: 
+      context: ./Client
+      dockerfile: Dockerfile-java
+    container_name: java-Client2
+    # volumes:
+    #   - ./java:/code
+    command: "java Client"
+    working_dir: "/code"
+    stdin_open: true
+    tty: true
+
+  cs:
+    # image: mcr.microsoft.com/dotnet/sdk:8.0 
+    build: 
+      context: ./Server
+      dockerfile: Dockerfile-cs
+    container_name: cs
+    # volumes:
+    #   - ./cs:/code
+    # working_dir: "/code"
+    # volumes:
+    #   - ./cs/asn2:/code
+    ports:
+      - "8080:91"
+    command: dotnet run
+    stdin_open: true
+    tty: true
+
+  # r1:
+  #  image: rust   
+  #  container_name: r1
+  #  ports:
+  #    - "8081:50051"
+  #  volumes:
+  #    - ./rust:/code
+  #  stdin_open: true   
+  #  tty: true          
+  #  command: bash
+  
+  # r2:
+  #  image: rust   
+  #  container_name: r2
+  #  ports:
+  #    - "8082:91"
+  #  volumes:
+  #    - ./rust:/code
+  #  stdin_open: true   
+  #  tty: true          
+  #  command: bash

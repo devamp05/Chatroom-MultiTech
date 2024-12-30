@@ -1,0 +1,6 @@
+# Devam Punitbhai Patel
+
+FROM amazoncorretto
+WORKDIR "/code"
+COPY ./*.java ./
+RUN javac Client.java
