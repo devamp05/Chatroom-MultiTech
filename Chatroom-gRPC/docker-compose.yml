@@ -1,0 +1,22 @@
+# Devam Punitbhai Patel
+
+version: '3.9'
+services:
+  grpc-server:
+    image: mcr.microsoft.com/dotnet/sdk:8.0
+    container_name: grpc-server
+    working_dir: "/code/GrpcServer"
+    volumes:
+      - ./GrpcServer:/code
+    command: dotnet run
+    stdin_open: true
+    tty: true
+  grpc-client:
+    image: mcr.microsoft.com/dotnet/sdk:8.0
+    container_name: grpc-client
+    working_dir: "/code"
+    volumes:
+      - ./Client:/code
+    command: bash
+    stdin_open: true
+    tty: true
