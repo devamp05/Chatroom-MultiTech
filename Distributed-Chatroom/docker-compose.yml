@@ -1,0 +1,73 @@
+# Devam Punitbhai Patel
+
+version: '3.9'
+services:
+  grpc-server-coordinator:
+    build: 
+      context: ./Server
+      dockerfile: Dockerfile-server
+    container_name: grpc-server-coordinator
+    environment:  # setup the server address as en environment variable so that it can be used by our 
+                  # program to detect who is the coordinator
+      - SERVER_ADDRESS=http://grpc-server-coordinator:5063
+    stdin_open: true
+    tty: true
+  grpc-server-two:
+    build: 
+      context: ./Server
+      dockerfile: Dockerfile-server
+    container_name: grpc-server-two
+    environment:  # setup the server address as en environment variable so that it can be used by our 
+                  # program to detect who is the coordinator
+      - SERVER_ADDRESS=http://grpc-server-two:5063
+    stdin_open: true
+    tty: true
+  grpc-server-three:
+    build: 
+      context: ./Server
+      dockerfile: Dockerfile-server
+    container_name: grpc-server-three
+    environment:  # setup the server address as en environment variable so that it can be used by our 
+                  # program to detect who is the coordinator
+      - SERVER_ADDRESS=http://grpc-server-three:5063
+    stdin_open: true
+    tty: true
+  grpc-client-one:
+    depends_on:
+      - grpc-server-coordinator
+    build: 
+      context: ./Client
+      dockerfile: Dockerfile-client
+    container_name: grpc-client-one
+    environment:  # setup the base url as environment variable
+      - BASE_URL=http://grpc-server-coordinator:5063
+    working_dir: "/code/Client"
+    command: dotnet run
+    stdin_open: true
+    tty: true
+  grpc-client-two:
+    depends_on:
+      - grpc-server-two
+    build: 
+      context: ./Client
+      dockerfile: Dockerfile-client
+    container_name: grpc-client-two
+    environment:  # setup the base url as environment variable
+      - BASE_URL=http://grpc-server-two:5063
+    working_dir: "/code/Client"
+    command: dotnet run
+    stdin_open: true
+    tty: true
+  grpc-client-three:
+    depends_on:
+      - grpc-server-three
+    build: 
+      context: ./Client
+      dockerfile: Dockerfile-client
+    container_name: grpc-client-three
+    environment:  # setup the base url as environment variable
+      - BASE_URL=http://grpc-server-three:5063
+    working_dir: "/code/Client"
+    command: dotnet run
+    stdin_open: true
+    tty: true

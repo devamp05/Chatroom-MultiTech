@@ -1,0 +1,12 @@
+# Use the .NET SDK image
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+
+# Set the working directory to GrpcServer
+WORKDIR /code/GrpcServer
+
+# Copy the entire server directory into the container
+COPY ./GrpcServer/ .
+
+# Restore dependencies and build the project
+RUN dotnet restore
+RUN dotnet build
