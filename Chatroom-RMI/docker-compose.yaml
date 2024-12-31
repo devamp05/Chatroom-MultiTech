@@ -1,0 +1,26 @@
+# Devam Punitbhai Patel
+
+version: '3.9'
+services:
+  java-server:
+    build:
+      context: ./Server
+      dockerfile: Dockerfile-Server
+    container_name: java-server
+    command: java chatroom.ChatRoomServer
+  java-client:
+    build:
+      context: ./Client
+      dockerfile: Dockerfile-Client
+    container_name: java-client
+    command: bash
+    stdin_open: true
+    tty: true
+  java-client2: # 2nd client container to test multiple clients
+    build:
+      context: ./Client
+      dockerfile: Dockerfile-Client
+    container_name: java-client2
+    command: bash
+    stdin_open: true
+    tty: true

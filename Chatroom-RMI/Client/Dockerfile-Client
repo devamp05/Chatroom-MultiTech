@@ -1,0 +1,11 @@
+# Devam Punitbhai Patel
+
+FROM amazoncorretto
+WORKDIR "/code/chatroom"
+COPY Caller.java .
+COPY ChatRoom.java .
+COPY Client.java .
+
+RUN javac *.java
+
+WORKDIR "/code"
