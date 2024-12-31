@@ -1,0 +1,7 @@
+# Devam Punitbhai Patel
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0
+WORKDIR "/code"
+COPY ./Client.cs ./
+COPY ./ChatroomClient.csproj ./
+RUN dotnet build

@@ -1,0 +1,33 @@
+# Devam Punitbhai Patel
+
+version: '3.9'
+services:
+  cs-server:
+    build: 
+      context: ./Server
+      dockerfile: Dockerfile-server
+    container_name: cs-server
+    working_dir: "/code"
+    command: dotnet run
+    stdin_open: true
+    tty: true
+  cs-client:
+    depends_on: # declare that this container depends on cs so it lets our sever start first
+      - cs-server
+    build: 
+      context: ./Client
+      dockerfile: Dockerfile-client
+    container_name: cs-client
+    command: dotnet run
+    stdin_open: true
+    tty: true
+  cs-client-2:
+    depends_on: # declare that this container depends on cs so it lets our sever start first
+      - cs-server
+    build: 
+      context: ./Client
+      dockerfile: Dockerfile-client
+    container_name: cs-client-2
+    command: dotnet run
+    stdin_open: true
+    tty: true
