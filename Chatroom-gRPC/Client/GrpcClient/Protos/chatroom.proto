@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+option csharp_namespace = "Client";
+
+package chatroom;
+
+
+service ChatRoomServer {
+  rpc ListAll (ListRequest) returns (ListResponse);
+  rpc CreateRoom (CreateRoomRequest) returns (CreateRoomResponse);
+  rpc JoinChatRoom (JoinChatRoomRequest) returns (stream SendResponse);
+  rpc Send (SendRequest) returns (SendResponse);
+  rpc LeaveChatRoom (LeaveChatRoomRequest) returns (LeaveChatRoomResponse);
+}
+
+
+
+message ListRequest {
+  
+}
+
+
+message ListResponse {
+  string rooms = 1;
+}
+
+message CreateRoomRequest {
+    string roomName = 1;
+}
+
+message CreateRoomResponse {
+    string result = 1;
+}
+
+message JoinChatRoomRequest {
+    string roomName = 1;
+}
+
+message SendRequest {
+    string roomName = 1;
+    string message = 2;
+}
+
+message SendResponse {
+    string chat = 1;
+}
+
+message LeaveChatRoomRequest {
+    string roomName = 1;
+}
+
+message LeaveChatRoomResponse {
+
+}

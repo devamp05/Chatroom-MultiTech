@@ -12,11 +12,15 @@ services:
     stdin_open: true
     tty: true
   grpc-client:
-    image: mcr.microsoft.com/dotnet/sdk:8.0
+    depends_on:
+      - grpc-server
+    build: 
+      context: ./Client
+      dockerfile: Dockerfile-client
     container_name: grpc-client
-    working_dir: "/code"
-    volumes:
-      - ./Client:/code
-    command: bash
+    environment:  # setup the base url as environment variable
+      - BASE_URL=http://grpc-server:5063
+    working_dir: "/code/Client"
+    command: dotnet run
     stdin_open: true
     tty: true
