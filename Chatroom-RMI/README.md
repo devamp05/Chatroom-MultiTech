@@ -16,3 +16,12 @@ This folder contains the implementation of the chatroom application using **Java
 1. Build the Docker image:
    ```bash
    docker-compose build
+2. Start the Server and Client containers
+   ```bash
+   docker-compose up
+3. Attach to the client container
+   ```bash
+   docker attach java-client
+4. Run client
+   ```bash
+   java chatroom.Client java-server
